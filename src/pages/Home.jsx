@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { Navbar, WhereTo, Footer, ToVisit } from '../components';
-import travelerChoiceBg from '../img/coverfb.png';
+import { WhereTo, Footer, ToVisit } from '../components';
 import { ToastContainer } from 'react-toastify';
 import Header from '../components/Header';
 
@@ -34,24 +33,7 @@ const Home = () => {
 			{/* <ToStay /> */}
 			{/* --- */}
 
-			{/* Traveler Choice Section */}
-			<div className='bg-[#DBAD86] mt-10'>
-				<div className="container w-full h-[350px] overflow-hidden mx-auto ">
-					{/* <div className="col-span-3 text-center py-6 flex flex-col items-center justify-center p-4 md:p-2">
-						<h2 className="text-white font-bold text-2xl md:text-[2.15em]">
-							Recommended Destinations
-						</h2>
-					</div> */}
-					{/* Section Background Image - Displays only on Large devices, Like Desktop */}
-					<div
-						className="w-full h-full bg-cover"
-						style={{ backgroundImage: `url(${travelerChoiceBg})` }}
-					/>
-					{/* --- */}
-					{/* --- */}
-				</div>
-			</div>
-			{/* --- */}
+			
 
 			{/* Trending in Travel Section */}
 			<div className="container mx-auto px-4 py-10">

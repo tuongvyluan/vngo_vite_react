@@ -15,7 +15,7 @@ const PlaceDetails = () => {
 	let account = useSelector((state) => state.login.account);
 	const { type, id } = useParams(); // Destucturing 'type' and 'id' from route parameter
 	const [place, setPlace] = useState();
-	const [tourDefault, setTourDefault] = useState(true)
+	const [tours, setTours] = useState();
 	const [reviews, setReviews] = useState();
 	const history = useHistory();
 	const formik = useFormik({
@@ -30,7 +30,7 @@ const PlaceDetails = () => {
 		const tourId = formik.values.id;
 		const customerId = account.id;
 		createBooking(customerId, touristNum, tourId).then((d) => {
-			history.push(`/checkout/${d.data.id}`)
+			history.push(`/checkout/${d.data.id}`);
 		});
 	};
 	const [isLoading, setIsLoading] = useState(true);
@@ -41,10 +41,21 @@ const PlaceDetails = () => {
 		setIsLoading(true);
 		await getPlaceDetails(id).then((data) => {
 			setPlace(data.data);
-			formik.values.id = data.data.tours[0].id;
-			setIsLoading(false);
 		});
 	}, [type, id]);
+
+	useEffect(() => {
+		if (typeof place !== 'undefined') {
+			setTours(place.tours);
+		}
+	}, [place]);
+
+	useEffect(() => {
+		if (typeof tours !== 'undefined' && tours.length > 0) {
+			formik.values.id = tours[0].id;
+			setIsLoading(false);
+		}
+	}, [tours]);
 
 	return (
 		<div className="relative">
@@ -482,73 +493,72 @@ const PlaceDetails = () => {
 											</div>
 										)}
 										{/* --- */}
-										<div className="col-span-6 bg-white my-1 mx-0 space-y-3 md:space-y-4">
-											<div className="flex w-full justify-between items-center">
-												<h2 className="font-medium text-2xl">Reserve your spot</h2>
-												<div className="top-right-content">
-													<div>
-														<div className="sign-in pt-2 pb-2 pl-3 pr-3 bg-black border border-white text-white rounded-full mx-2 hover:bg-white hover:border hover:border-black hover:text-black ease-in duration-500">
-															<button onClick={handleCheckout} className="addToTour">
-																Checkout
-															</button>
-														</div>
-													</div>
-												</div>
-											</div>
-											<form className='mt-3'>
-												<div className="flex gap-2 mb-3 bg-white border border-gray-300 shadow-sm w-fit p-2 items-center rounded-xl">
-													<AiOutlineUser />
-													<input
-														name="touristNum"
-														onChange={formik.handleChange}
-														value={formik.values.touristNum}
-														required
-														type="number"
-														className="w-8"
-														min={1}
-													/>
-												</div>
-												<div className="grid grid-cols-3 gap-3">
-													{place?.tours?.map((tour, i) => (
-														<div
-															key={tour.id}
-															className={
-																formik.values.id == tour.id
-																	? 'col-span-1 hover:scale-105 transition duration-300 ease-in-out border-2 rounded-xl shadow-sm border-gray-300 p-4'
-																	: 'col-span-1 hover:scale-105 transition duration-300 ease-in-out border rounded-xl shadow-sm border-gray-300 p-4'
-															}
-														>
-															<div className="flex justify-between items-center mb-3">
-																<div className="font-semibold">{tour.tourName}</div>
-																<input
-																	id="default-radio-1"
-																	type="radio"
-																	onChange={() =>
-																		formik.setFieldValue('id', tour.id)
-																	}
-																	value={formik.values.id}
-																	defaultChecked={i === 0}
-																	name="id"
-																	className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2"
-																></input>
-															</div>
-															<div className="mb-2">{tour.tourDescription}</div>
-															<div className="mb-1">
-																{formik.values.touristNum} x ${tour.price.toFixed(2)}
-															</div>
-															<div className="font-semibold">
-																Total: $
-																{(formik.values.touristNum * tour.price).toFixed(2)}
-															</div>
-															<div>(No additional tax or booking fees)</div>
-														</div>
-													))}
-												</div>
-											</form>
-										</div>
 									</div>
 								</div>
 							)}
+
+							<div className="col-span-6 bg-white my-1 mx-0 space-y-3 md:space-y-4">
+								<div className="flex w-full justify-between items-center">
+									<h2 className="font-medium text-2xl">Reserve your spot</h2>
+									<div className="top-right-content">
+										<div>
+											<div className="sign-in pt-2 pb-2 pl-3 pr-3 bg-black border border-white text-white rounded-full mx-2 hover:bg-white hover:border hover:border-black hover:text-black ease-in duration-500">
+												<button onClick={handleCheckout} className="addToTour">
+													Checkout
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<form id="tour">
+									<div className="flex gap-2 mb-3 bg-white border border-gray-300 shadow-sm w-fit p-2 items-center rounded-xl">
+										<AiOutlineUser />
+										<input
+											name="touristNum"
+											onChange={formik.handleChange}
+											value={formik.values.touristNum}
+											required
+											type="number"
+											className="w-8"
+											min={1}
+										/>
+									</div>
+									<div className="grid grid-cols-3 gap-3">
+										{place.tours.map((tour, i) => (
+											<div
+												key={tour.id}
+												className={
+													formik.values.id == tour.id
+														? 'col-span-1 hover:scale-105 transition duration-300 ease-in-out border-2 rounded-xl shadow-sm border-gray-300 p-4'
+														: 'col-span-1 hover:scale-105 transition duration-300 ease-in-out border rounded-xl shadow-sm border-gray-300 p-4'
+												}
+											>
+												<div className="flex justify-between items-center mb-3">
+													<div className="font-semibold">{tour?.tourName}</div>
+													<input
+														id="default-radio-1"
+														type="radio"
+														onChange={() => formik.setFieldValue('id', tour?.id)}
+														value={formik.values.id}
+														defaultChecked={i === 0}
+														name="id"
+														className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2"
+													></input>
+												</div>
+												<div className="mb-2">{tour?.tourDescription}</div>
+												<div className="mb-1">
+													{formik.values.touristNum} x ${tour?.price?.toFixed(2)}
+												</div>
+												<div className="font-semibold">
+													Total: $
+													{(formik.values.touristNum * tour?.price).toFixed(2)}
+												</div>
+												<div>(No additional tax or booking fees)</div>
+											</div>
+										))}
+									</div>
+								</form>
+							</div>
 							{/* --- */}
 
 							{/* Cuisines/Special Diets - Section display only if either cusine or diet restriction is found in place details */}
