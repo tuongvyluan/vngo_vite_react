@@ -1,5 +1,5 @@
 import React from 'react';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { FaFileInvoice } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { logout } from '../features/login/loginSlice';
@@ -30,13 +30,13 @@ export default function Header() {
 							<Link to={'/booking'}>
 								<div className="tour hover:bg-gray-200 px-3 py-2 cursor-pointer rounded-full duration-500">
 									<button className="flex flex-row justify-center items-center space-x-1 font-medium">
-										<AiOutlineHeart />
+										<FaFileInvoice />
 										<p>Booking</p>
 									</button>
 								</div>
 							</Link>
 							<div className="login-btn">
-								<div className="peer relative user-login flex justify-items-center items-center hover:bg-gray-200 py-2 px-4 cursor-pointer rounded-full duration-500">
+								<div className="peer relative user-login font-medium flex justify-items-center items-center hover:bg-gray-200 py-2 px-4 cursor-pointer rounded-full duration-500">
 									<h1>{account.firstName}</h1>
 									<img
 										src={account.avatar}

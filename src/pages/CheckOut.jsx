@@ -127,17 +127,17 @@ function CheckOut() {
 							<h1 className="text-2xl font-semibold mt-2 mb-4">Booking summary</h1>
 							<div className="subtotal flex justify-between  my-2 justify-items-center">
 								<p>Subtotal</p>
-								<p>${(booking?.touristNum * booking?.tour?.price).toFixed(2)}</p>
+								<p>{(booking?.touristNum * booking?.tour?.price).toFixed(0).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")} VND</p>
 							</div>
 							<div className="discount flex justify-between  my-2 justify-items-center">
 								<p>Discount</p>
-								<p>$0</p>
+								<p>0 VND</p>
 							</div>
 							<div className="divider border border-b-0 border-dashed border-slate-400"></div>
 							<div className="total flex justify-between  my-2 justify-items-center">
 								<p>Total</p>
 								<p className="text-xl font-semibold">
-									${(booking?.touristNum * booking?.tour?.price).toFixed(2)}
+									{(booking?.touristNum * booking?.tour?.price).toFixed(0).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")} VND
 								</p>
 							</div>
 						</div>

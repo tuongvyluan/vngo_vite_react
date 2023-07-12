@@ -125,14 +125,13 @@ function Booking() {
 																Subtotal:
 															</th>
 															<td>
-																{item?.touristNum} x $
-																{(item?.tour?.price).toFixed(2)}
+																{item?.touristNum} x {(item?.tour?.price).toFixed(0).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")} VND
 															</td>
 														</tr>
 														<tr>
 															<th className="text-sm text-gray-500 font-normal text-left pr-5">Total:</th>
 															<td>
-																${(item?.touristNum * item?.tour?.price).toFixed(2)}
+																{(item?.touristNum * item?.tour?.price).toFixed(0).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")} VND
 															</td>
 														</tr>
 													</table>
