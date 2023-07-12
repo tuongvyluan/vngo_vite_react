@@ -1,6 +1,6 @@
 # Welcome to VietnamGo 👋
 
-![VietnamGo Screenshot](https://i.ibb.co/WBNyy3Q/screenshot-VietnamGo-bey-netlify-app-2022-06-15-14-43-15.png)
+![VietnamGo Screenshot](https://i.ibb.co/WBNyy3Q/screenshot-tripadvisor-bey-netlify-app-2022-06-15-14-43-15.png)
 
 A ReactJS TripAdvisor Clone Web App made with the RapidAPI's VietnamGo API and Google Maps API
 
@@ -11,7 +11,7 @@ A ReactJS TripAdvisor Clone Web App made with the RapidAPI's VietnamGo API and G
   </a>
 </p>
 
-### ✨ [Live Preview](https://VietnamGo-bey.netlify.app/)
+### ✨ [Live Preview](https://tripadvisor-bey.netlify.app/)
 
 ## Install
 Run the Command to Install all dependencies.

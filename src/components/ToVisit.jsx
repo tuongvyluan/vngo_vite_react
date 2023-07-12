@@ -71,7 +71,7 @@ const ToVisit = () => {
 			) : (
 				// Places are ready, hence the element below is render
 				<div>
-					<div className="container mx-auto p-4">
+					<div className="container mx-auto pt-4 px-4 mt-5">
 						<div className="flex justify-between items-center">
 							<div>
 								<h2 className="font-semibold text-lg md:text-2xl">Place to Visit</h2>

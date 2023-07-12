@@ -1,22 +1,52 @@
 // Single Place Details for => Attractions and Restaurants
 
-import { useParams, Link, useHistory } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { createBooking, getPlaceDetails } from '../../api';
-import { Footer, Review } from '../../components';
+import { useParams, useHistory } from 'react-router-dom';
 import ReactStarsRating from 'react-awesome-stars-rating';
+import { Fragment, useEffect, useState } from 'react';
+import { Accordion, AccordionHeader, AccordionBody } from '@material-tailwind/react';
+import { createBooking, getPlaceDetails, createReview } from '../../api';
+import { Footer, Review } from '../../components';
 import { Loader, PlaceDetailsLoader } from '../../components/loaders';
 import { AiOutlineUser } from 'react-icons/ai';
 import Header from '../../components/Header';
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
+import { defaultDescriptions } from '../../public/defaultDescription';
+
+function Icon({ open }) {
+	return (
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			className={`${open ? 'rotate-180' : ''} h-5 w-5 transition-transform`}
+			fill="none"
+			viewBox="0 0 24 24"
+			stroke="currentColor"
+			strokeWidth={2}
+		>
+			<path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+		</svg>
+	);
+}
 
 const PlaceDetails = () => {
+	const [openAcc1, setOpenAcc1] = useState(false);
+	const [openAcc2, setOpenAcc2] = useState(false);
+	const [openAcc3, setOpenAcc3] = useState(false);
+	const [openAcc4, setOpenAcc4] = useState(false);
+	const [openAcc5, setOpenAcc5] = useState(false);
+
+	const handleOpenAcc1 = () => setOpenAcc1((cur) => !cur);
+	const handleOpenAcc2 = () => setOpenAcc2((cur) => !cur);
+	const handleOpenAcc3 = () => setOpenAcc3((cur) => !cur);
+	const handleOpenAcc4 = () => setOpenAcc4((cur) => !cur);
+	const handleOpenAcc5 = () => setOpenAcc5((cur) => !cur);
+
 	let account = useSelector((state) => state.login.account);
 	const { type, id } = useParams(); // Destucturing 'type' and 'id' from route parameter
+	const [defaultTour, setDefaultTour] = useState();
 	const [place, setPlace] = useState();
 	const [tours, setTours] = useState();
-	const [reviews, setReviews] = useState();
+	const [rating, setRating] = useState(5);
 	const history = useHistory();
 	const formik = useFormik({
 		initialValues: {
@@ -35,10 +65,47 @@ const PlaceDetails = () => {
 	};
 	const [isLoading, setIsLoading] = useState(true);
 
+	const handleRating = () => {
+		const reviewContent = document.getElementById('reviewContent').value;
+		const reviewTitle = document.getElementById('reviewTitle').value;
+		const data = {
+			summary: reviewContent,
+			author: account.firstName + ' ' + account.lastName,
+			rating: rating,
+			locationId: id,
+			title: reviewTitle
+		};
+		console.log(data);
+		createReview(data).then(() => {
+			window.location.reload(true);
+		});
+	};
+
+	useEffect(() => {
+		setIsLoading(true);
+		const calcId = ((id % 1000) - (id % 100)) / 100;
+		console.log(id, calcId);
+		switch (calcId) {
+			case 1:
+				setDefaultTour(defaultDescriptions.oneDayTour);
+				break;
+			case 2:
+				setDefaultTour(defaultDescriptions.twoDayTour);
+				break;
+			case 3:
+				setDefaultTour(defaultDescriptions.halfDayNoFood);
+				break;
+			case 4:
+				setDefaultTour(defaultDescriptions.halfDayWithFood);
+				break;
+			case 5:
+				setDefaultTour(defaultDescriptions.foodTour);
+				break;
+		}
+	}, [id]);
 	// Effect to fetch place details from getPlaceDetails endpoint and Effect is reran dependent on 'type' or 'id' change
 	useEffect(async () => {
 		// calling the getPlaceDetails endpoint passing in the 'type' of place (hotel || restaurant || attraction), 'id' and 'source' for error handling
-		setIsLoading(true);
 		await getPlaceDetails(id).then((data) => {
 			setPlace(data.data);
 		});
@@ -68,10 +135,10 @@ const PlaceDetails = () => {
 				<PlaceDetailsLoader />
 			) : (
 				<>
-					<div className="border-b w-full h-fit flex justify-between items-center sticky top-0 bg-white z-20">
-						<div className="container mx-auto px-4">
-							{/* Link Routing back to a list of the currently viewed place type -> i.e list of "Hotels", "Restaurants" or "Attractions" */}
-							<Link to={`/${type}`}>
+					{/* <div className="border-b w-full h-fit flex justify-between items-center sticky top-0 bg-white z-20">
+						<div className="container mx-auto px-4"> */}
+					{/* Link Routing back to a list of the currently viewed place type -> i.e list of "Hotels", "Restaurants" or "Attractions" */}
+					{/* <Link to={`/${type}`}>
 								<div className="w-fit border-r py-3 pl-3 pr-3 md:pl-0 md:pr-4 cursor-pointer flex item-center">
 									<svg
 										className="h-6 w-6 mr-2"
@@ -89,10 +156,10 @@ const PlaceDetails = () => {
 									</svg>
 									<p>Back to all {type}</p>
 								</div>
-							</Link>
-							{/* --- */}
-						</div>
-					</div>
+							</Link> */}
+					{/* --- */}
+					{/* </div>
+					</div> */}
 					<div className="top-content flex justify-items-center justify-between items-center container mx-auto">
 						<div className="top-left-content">
 							<div className="container mx-auto px-4 pt-4">
@@ -447,7 +514,8 @@ const PlaceDetails = () => {
 													secondaryColor="#e5e7eb"
 												/>
 												<span className="text-sm font-medium">
-													{place?.num_reviews} Reviews{' '}
+													{place?.num_reviews}{' '}
+													{place?.num_reviews > 1 ? 'Reviews' : 'Review'}
 												</span>
 											</p>
 										)}
@@ -496,10 +564,111 @@ const PlaceDetails = () => {
 									</div>
 								</div>
 							)}
-
+							{defaultTour ? (
+								<div className="col-span-6 bg-white my-1 mx-0 space-y-3 md:space-y-4">
+									<Fragment>
+										<Accordion
+											open={openAcc1}
+											icon={<Icon open={openAcc1} />}
+										>
+											<AccordionHeader onClick={handleOpenAcc1}>
+												<h2 className="font-medium text-2xl">Basic Information</h2>
+											</AccordionHeader>
+											<AccordionBody>
+												{defaultTour.BasicInformation?.map((tour, i) => (
+													<p
+														key={i}
+														className="text-base text-black font-normal mt-3"
+													>
+														{tour}
+													</p>
+												))}
+											</AccordionBody>
+										</Accordion>
+										<Accordion
+											open={openAcc2}
+											icon={<Icon open={openAcc2} />}
+										>
+											<AccordionHeader onClick={handleOpenAcc2}>
+												<h2 className="font-medium text-2xl">What's Included</h2>
+											</AccordionHeader>
+											<AccordionBody>
+												{defaultTour.WhatIncluded?.map((tour, i) => (
+													<p
+														key={i}
+														className="text-base text-black font-normal mt-3"
+													>
+														{tour}
+													</p>
+												))}
+											</AccordionBody>
+										</Accordion>
+										<Accordion
+											open={openAcc3}
+											icon={<Icon open={openAcc3} />}
+										>
+											<AccordionHeader onClick={handleOpenAcc3}>
+												<h2 className="font-medium text-2xl">Pick-up</h2>
+											</AccordionHeader>
+											<AccordionBody>
+												{defaultTour.Pickup?.map((tour, i) => (
+													<p
+														key={i}
+														className="text-base text-black font-normal mt-3"
+													>
+														{tour}
+													</p>
+												))}
+											</AccordionBody>
+										</Accordion>
+										<Accordion
+											open={openAcc4}
+											icon={<Icon open={openAcc4} />}
+										>
+											<AccordionHeader onClick={handleOpenAcc4}>
+												<h2 className="font-medium text-2xl">
+													Additional Information
+												</h2>
+											</AccordionHeader>
+											<AccordionBody>
+												{defaultTour.AdditionalInformation?.map((tour, i) => (
+													<p
+														key={i}
+														className="text-base text-black font-normal mt-3"
+													>
+														{tour}
+													</p>
+												))}
+											</AccordionBody>
+										</Accordion>
+										<Accordion
+											open={openAcc5}
+											icon={<Icon open={openAcc5} />}
+										>
+											<AccordionHeader onClick={handleOpenAcc5}>
+												<h2 className="font-medium text-2xl">Cancellation Policy</h2>
+											</AccordionHeader>
+											<AccordionBody>
+												{defaultTour.CancellationPolicy?.map((tour, i) => (
+													<p
+														key={i}
+														className="text-base text-black font-normal mt-3"
+													>
+														{tour}
+													</p>
+												))}
+											</AccordionBody>
+										</Accordion>
+									</Fragment>
+								</div>
+							) : (
+								<></>
+							)}
 							<div className="col-span-6 bg-white my-1 mx-0 space-y-3 md:space-y-4">
 								<div className="flex w-full justify-between items-center">
-									<h2 className="font-medium text-2xl">Reserve your spot</h2>
+									<h1 className="font-semibold text-lg md:text-2xl">
+										Reserve your spot
+									</h1>
 									<div className="top-right-content">
 										<div>
 											<div className="sign-in pt-2 pb-2 pl-3 pr-3 bg-black border border-white text-white rounded-full mx-2 hover:bg-white hover:border hover:border-black hover:text-black ease-in duration-500">
@@ -751,6 +920,58 @@ const PlaceDetails = () => {
 								</h2>
 								{/* --- */}
 								<div className="h-[1px] bg-gray-300 my-3 md:my-4" />
+								{account?.firstName ? (
+									<div className="w-full">
+										<div className="mb-3">
+											<div className="font-semibold mb-3">
+												{account.firstName} {account.lastName}
+											</div>
+											<div className="flex gap-2 items-center">
+												<input
+													type="text"
+													id="reviewTitle"
+													placeholder="Enter review title"
+													className="w-1/2 border-2 p-2 rounded-xl"
+												/>
+												<ReactStarsRating
+													key={rating}
+													value={rating}
+													onChange={setRating}
+													className="flex"
+													size={20}
+													isEdit={true}
+													isHalf={true}
+													isArrowSubmit={true}
+													primaryColor="#00afef"
+													secondaryColor="#e5e7eb"
+												/>
+												<span>{rating}</span>
+											</div>
+										</div>
+										<div>
+											<form>
+												<textarea
+													rows={5}
+													id="reviewContent"
+													placeholder="Enter your reviews"
+													required
+													type="text"
+													className="border-2 w-full rounded-xl p-2"
+													minLength={50}
+												/>
+											</form>
+										</div>
+										<div className="flex justify-end">
+											<div className="sign-in w-fit pt-2 pb-2 pl-3 pr-3 bg-black border border-white text-white rounded-full mx-2 hover:bg-white hover:border hover:border-black hover:text-black ease-in duration-500">
+												<button onClick={handleRating} className="addToTour">
+													Submit
+												</button>
+											</div>
+										</div>
+									</div>
+								) : (
+									<div></div>
+								)}
 								{/* Reviews - Renders Reviews when ready or a Loader is Displayed */}
 								{place?.reviews ? (
 									<>

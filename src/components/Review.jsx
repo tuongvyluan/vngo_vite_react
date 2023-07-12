@@ -9,12 +9,12 @@ const Review = ({ review, place }) => {
 		<>
 			<div className="flex flex-wrap md:grid md:grid-cols-12">
 				{/* review User Username */}
-				<p className="ml-3 md:ml-0 md:mt-2 text-xs text-center">
-					{review?.user?.username}
-				</p>
 
 				<div className="w-full md:col-span-10 space-y-2 mt-2 md:mt-0">
-					<p className="text-[11px] md:text-xs flex flex-wrap space-x-2">
+					<p className="text-[11px] md:text-xs flex flex-wrap space-x-2 items-center">
+						<div className="ml-3 md:ml-0 md:mt-2 font-medium md:text-lg text-center">
+							{review?.author}
+						</div>
 						{/* Review rating with value passed into component to render rating stars */}
 						<ReactStarsRating
 							value={Number(review?.rating)}
@@ -83,13 +83,6 @@ const Review = ({ review, place }) => {
 							{/* --- */}
 						</div>
 					)}
-					{/* --- */}
-
-					{/* Date of Visit - Formatted using Moments */}
-					<p className="text-sm">
-						<span className="font-semibold">Date of Visit:</span>{' '}
-						{moment(review?.travel_date).format('MMMM YYYY')}
-					</p>
 					{/* --- */}
 
 					{/* Review Owners Response - Display if response is found for the review */}

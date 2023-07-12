@@ -36,6 +36,17 @@ export const createBooking = async (customerId, touristNum, tourId) => {
 	}
 };
 
+// Post booking
+export const createReview = async (review) => {
+	try {
+		const data = await axios.post(
+			`${apiBase}/api/Review`, review
+		);
+		return data;
+	} catch (error) {
+		console.log(error);
+	}
+};
 // Get bookings by customer
 export const getBookings = async (customerId) => {
 	try {
