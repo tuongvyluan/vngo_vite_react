@@ -1,6 +1,6 @@
 import { defaultAttractions } from '../public/defaultData';
 import axios from 'axios';
-const apiBase = 'https://localhost:5000'
+const apiBase = 'http://54.169.157.200'
 const deployApiBase = ''
 
 // Check login
