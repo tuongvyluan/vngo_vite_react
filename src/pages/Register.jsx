@@ -2,17 +2,13 @@ import React, { useState } from 'react';
 import loginBg from '../img/login_bg.png';
 import fb from '../img/facebook.png';
 import { useFormik } from 'formik';
-import { useDispatch } from 'react-redux';
 import { register } from '../api';
-import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
-import { loginSuccess } from '../features/login/loginSlice';
 function Register() {
 	const [hasError, setHasError] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
-	const dispatch = useDispatch();
 	let history = useHistory();
 	const formik = useFormik({
 		initialValues: {
@@ -33,7 +29,7 @@ function Register() {
 				setHasError(true);
 			} else {
 				setErrorMessage('');
-				let checkAcc = await register(
+				await register(
 					values.email,
 					values.password,
 					values.firstName,
