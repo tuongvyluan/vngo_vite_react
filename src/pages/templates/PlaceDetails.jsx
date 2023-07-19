@@ -478,7 +478,7 @@ const PlaceDetails = () => {
 							</div>
 						)}
 
-						<div className=" grid grid-cols-5 gap-8">
+						<div className=" sm:grid grid-cols-5 gap-8">
 							<div className="md:grid grid-cols-1 md:grid-cols-6 gap-3 pb-10 col-span-3">
 								{/* About Info */}
 								<div className="col-span-6 bg-white my-1 mx-0 space-y-2">
@@ -844,13 +844,13 @@ const PlaceDetails = () => {
 								)}
 							</div>
 							<div className="col-span-2 bg-white my-1 mx-0 space-y-3 md:space-y-4 border-2 shadow-sm border-gray-300 rounded-xl p-3 h-fit">
-								<div className="flex w-full justify-between items-center">
+								<div className="sm:block flex md:flex w-full justify-between items-center">
 									<h1 className="font-semibold text-lg md:text-xl">
 										Reserve your spot
 									</h1>
 									<div className="top-right-content">
 										<div>
-											<div className="sign-in pt-2 pb-2 pl-3 pr-3 bg-black border border-white text-white rounded-full mx-2 hover:bg-white hover:border hover:border-black hover:text-black ease-in duration-500">
+											<div className="sign-in pt-2 pb-2 pl-3 pr-3 w-fit bg-black border border-white text-white rounded-full mx-2 md:mx-2 sm:mx-auto hover:bg-white hover:border hover:border-black hover:text-black ease-in duration-500">
 												<button onClick={handleCheckout} className="addToTour">
 													Checkout
 												</button>
