@@ -36,10 +36,10 @@ function CheckOut() {
 				Checkout
 			</h1>
 			{isLoading ? (
-				<div className='min-h-[calc(100vh-20rem)]'></div>
+				<div className='min-h-[calc(100vh-240px)]'></div>
 			) : (
 				<>
-					<div className="checkout min-h-[calc(100vh-20rem)] container mx-auto p-4 flex ">
+					<div className="checkout min-h-[calc(100vh-240px)] container mx-auto p-4 flex ">
 						<div className="checkout-left basis-3/4 mr-5">
 							<div className="checkout-info">
 								<div className="checkout-info-item text-left bg-slate-50 px-5 py-5 rounded-lg">

@@ -72,10 +72,10 @@ const ToVisit = () => {
 				// Places are ready, hence the element below is render
 				<div>
 					<div className="container mx-auto pt-4 px-4 mt-5">
-						<div className="flex justify-between items-center">
+						<div className="bloxk sm:flex justify-between items-center mb-2">
 							<div>
 								<h2 className="font-semibold text-lg md:text-2xl">Place to Visit</h2>
-								<p className="text-sm text-dark mb-2">
+								<p className="text-sm text-dark">
 									These are some places you might want to visit
 								</p>
 							</div>
@@ -114,12 +114,12 @@ const ToVisit = () => {
 						</div>
 					</div>
 					<div className="container mx-auto p-4">
-						<div className="flex justify-between items-center">
+						<div className="bloxk sm:flex justify-between items-center mb-2">
 							<div>
 								<h2 className="font-semibold text-lg md:text-2xl">
 									Interested in history?
 								</h2>
-								<p className="text-sm text-dark mb-2">
+								<p className="text-sm text-dark">
 									These are the must-see Vietnamese historic sites
 								</p>
 							</div>
@@ -132,7 +132,7 @@ const ToVisit = () => {
 						</div>
 
 						{/* OwlCarousel to Render Places in Carousel */}
-						<div className="relative -left-[20px]">
+						<div className="relative -left-[20px] mb-5">
 							<OwlCarousel
 								nav
 								stagePadding={20}
@@ -177,12 +177,12 @@ const ToVisit = () => {
 					</div>
 					{/* --- */}
 					<div className="container mx-auto p-4">
-						<div className="flex justify-between items-center">
+						<div className="bloxk sm:flex justify-between items-center mb-2">
 							<div>
 								<h2 className="font-semibold text-lg md:text-2xl">
 									Best things to do
 								</h2>
-								<p className="text-sm text-dark mb-2">
+								<p className="text-sm text-dark">
 									These are the must-try activities on your Vietnamese adventure
 								</p>
 							</div>

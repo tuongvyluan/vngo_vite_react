@@ -86,7 +86,7 @@ const AttractionsList = () => {
 											<span className="flex items-center mr-1">
 												<ReactStarsRating
 													value={Number(attraction?.rating)}
-													size={18}
+													size={20}
 													className="flex mr-2"
 													isEdit={false}
 													primaryColor="#00afef"
@@ -95,7 +95,7 @@ const AttractionsList = () => {
 											</span>
 											{/* --- */}
 											{/* Attraction Revies Count */}
-											{attraction?.num_reviews} Reviews
+											{attraction?.num_reviews > 1 ? `${attraction?.num_reviews} Reviews` : `${attraction?.num_reviews} Review`} 
 											{/* --- */}
 										</p>
 										<p className="text-sm">

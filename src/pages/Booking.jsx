@@ -48,11 +48,11 @@ function Booking() {
 		<div className="cart-section">
 			<Header />
 			{isLoading ? (
-				<div className='min-h-[calc(100vh-20rem)]'></div>
+				<div className='min-h-[calc(100vh-240px)]'></div>
 			) : (
 				<>
 					{items.length === 0 ? (
-						<div className="emptyTour min-h-[calc(100vh-20rem)] text-center  flex flex-col items-center justify-center">
+						<div className="emptyTour min-h-[calc(100vh-240px)] text-center  flex flex-col items-center justify-center">
 							<img src={suitcase} alt="suitcase" className="w-36 h-36" />
 							<h1 className="text-2xl font-semibold">Your tour history is empty</h1>
 							<p className="font-semibold text-base my-2">
@@ -66,7 +66,7 @@ function Booking() {
 							</Link>
 						</div>
 					) : (
-						<div className="cart-container container mx-auto p-4 min-h-[calc(100vh-20rem)]">
+						<div className="cart-container container mx-auto p-4 min-h-[calc(100vh-240px)]">
 							<h1 className="text-3xl font-semibold my-5">Bookings</h1>
 
 							<div className="cart-content flex justify-items-center justify-between">
