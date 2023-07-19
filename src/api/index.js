@@ -1,6 +1,6 @@
 import { defaultAttractions } from '../public/defaultData';
 import axios from 'axios';
-const apiBase = 'http://54.169.157.200'
+const apiBase = 'https://vietnamgo.azurewebsites.net'
 const deployApiBase = ''
 
 // Check login
