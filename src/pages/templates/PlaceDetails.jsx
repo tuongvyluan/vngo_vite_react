@@ -180,7 +180,7 @@ const PlaceDetails = () => {
 											primaryColor="#00afef"
 											secondaryColor="#e5e7eb"
 										/>
-										{place?.num_reviews} Reviews
+										{place?.num_reviews > 1 ? `${place?.num_reviews} Reviews` : `${place?.num_reviews} Review` } 
 									</span>
 									{/* --- */}
 									{/* Place Ranking and Place Price Level */}~ {place?.ranking} ~{' '}
