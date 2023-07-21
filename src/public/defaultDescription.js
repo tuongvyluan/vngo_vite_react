@@ -41,7 +41,7 @@ export const defaultDescriptions = {
 		WhatIncluded: [
 			'3 meals per day (Vietnamese dishes)',
 			"Attraction's ticket",
-			'Accomodation,  Sourvenirs, and Food&Bevarage(not in meal) is not included'
+			'Accomodation,  Sourvenirs, and Food & Bevarage (not in meal) is not included'
 		],
 		Pickup: [
 			'We meet at Saigon Central Post Office 2 Cong Xa Paris Street, District 1, Ho Chi Minh City',
