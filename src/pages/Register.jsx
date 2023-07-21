@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import loginBg from '../img/login_bg.png';
 import fb from '../img/facebook.png';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { useFormik } from 'formik';
 import { register } from '../api';
+import logo from '../img/logoFull.png';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
@@ -54,7 +56,12 @@ function Register() {
 		>
 			<div className="h-full flex items-center justify-center">
 				<div className="w-96 p-4 bg-white shadow-lg my-16 text-center px-5 rounded-xl">
-					<h1 className="text-xl font-semibold py-2">V I E T N A M G O</h1>
+					<Link to={'/'}>
+						<div className="flex justify-center">
+							{/* <h1 className="text-2xl  tracking-normal">V I E T N A M G O</h1> */}
+							<img src={logo} className="h-11" />
+						</div>
+					</Link>
 					<h1 className="text-2xl font-bold py-2">Welcome to 'local'</h1>
 
 					<form
@@ -171,41 +178,6 @@ function Register() {
 								Sign in
 							</a>
 						</p>
-
-						<div className="divider-or ">
-							<p className=" text-center before:w-24 relative before:content-[''] before:h-px before:bg-black before:left-0 before:block before:absolute before:top-1/2 after:w-24 after:content-[''] after:h-px after:bg-black after:right-0 after:block after:absolute after:top-1/2">
-								Or Sign in with
-							</p>
-						</div>
-						<div className="another-login">
-							<div className="google-login">
-								<button
-									aria-label="Continue with google"
-									role="button"
-									className="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-2.5 px-4 border rounded-lg border-gray-700 flex items-center w-full mt-5 hover:bg-slate-100"
-								>
-									<img
-										src="https://tuk-cdn.s3.amazonaws.com/can-uploader/sign_in-svg2.svg"
-										alt="google"
-									/>
-									<p className="text-base font-medium ml-12 text-gray-700">
-										Continue with Google
-									</p>
-								</button>
-							</div>
-							<div className="facebook-login">
-								<button
-									aria-label="Continue with facebook"
-									role="button"
-									className="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-2.5 px-4 border rounded-lg border-gray-700 flex items-center w-full mt-5 hover:bg-slate-100"
-								>
-									<img src={fb} alt="facebook" />
-									<p className="text-base font-medium ml-12 text-gray-700">
-										Continue with Facebook
-									</p>
-								</button>
-							</div>
-						</div>
 					</form>
 				</div>
 			</div>

@@ -44,15 +44,10 @@ export default function Header() {
 										className="w-8 h-8 rounded-full ml-2"
 									/>
 								</div>
-								<div className=" absolute bot-0 hidden peer-hover:flex hover:flex w-[200px] flex-col bg-white drop-shadow-lg duration-500 rounded-md text-center">
+								<div className=" absolute bot-0 hidden peer-hover:flex hover:flex w-[120px] flex-col bg-white drop-shadow-lg duration-500 rounded-md text-center">
+									
 									<a
-										className="px-5 py-3 hover:bg-gray-200 duration-500"
-										href="#"
-									>
-										Account Info
-									</a>
-									<a
-										className="px-5 py-3 hover:bg-gray-200 duration-500 cursor-pointer"
+										className="px-3 py-3 hover:bg-gray-200 duration-500 cursor-pointer"
 										onClick={handleLogOut}
 									>
 										Log Out
